@@ -15,9 +15,11 @@ function App() {
   }, []);
 
   const getMovies = async () => {
-    await axios.get('http://localhost:8080/api/movies').then((response) => {
-      setMovieList(response.data);
-    });
+    await axios
+      .get('https://movie-server-production.up.railway.app/api/movies')
+      .then((response) => {
+        setMovieList(response.data);
+      });
   };
 
   const onChange = (e) => {
@@ -25,12 +27,12 @@ function App() {
     setData({ ...data, [name]: value });
   };
   const handleSubmit = async (e) => {
-    await axios.post('http://localhost:8080/api/movies', { data });
+    await axios.post('https://movie-server-production.up.railway.app/api/movies', { data });
     setData(initData);
     getMovies();
   };
   const deleteMovie = async (id) => {
-    await axios.delete(`http://localhost:8080/api/movies/${id}`);
+    await axios.delete(`https://movie-server-production.up.railway.app/api/movies/${id}`);
     getMovies();
   };
 
