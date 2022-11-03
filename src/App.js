@@ -12,24 +12,25 @@ function App() {
 
   useEffect(() => {
     getMovies();
-  }, [movieList]);
+  }, []);
 
-  const getMovies = () => {
-    axios.get('https://movie-server-production.up.railway.app/api/movies').then((response) => {
+  const getMovies = async () => {
+    await axios.get('http://localhost:8080/api/movies').then((response) => {
       setMovieList(response.data);
     });
   };
+
   const onChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
-  const handleSubmit = (e) => {
-    axios.post('https://movie-server-production.up.railway.app/api/add', { data });
-    getMovies();
+  const handleSubmit = async (e) => {
+    await axios.post('http://localhost:8080/api/movies', { data });
     setData(initData);
+    getMovies();
   };
-  const deleteMovie = (id) => {
-    axios.delete(`https://movie-server-production.up.railway.app/api/delete/${id}`);
+  const deleteMovie = async (id) => {
+    await axios.delete(`http://localhost:8080/api/movies/${id}`);
     getMovies();
   };
 
